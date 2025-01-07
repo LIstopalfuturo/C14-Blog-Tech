@@ -5,21 +5,32 @@ const signupFormHandler = async (event) => {
   const email = document.querySelector('#email-signup').value.trim();
   const password = document.querySelector('#password-signup').value.trim();
 
-  if (name && email && password) {
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify({ name, email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+  console.log('Attempting signup with:', { name, email }); // For debugging
 
-    if (response.ok) {
-      document.location.replace('/viewPost');
-    } else {
-      alert('Failed to sign up');
+  if (name && email && password) {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await response.json();
+      console.log('Signup response:', data); // For debugging
+
+      if (response.ok) {
+        document.location.replace('/dashboard');
+      } else {
+        alert(data.message || 'Failed to sign up. Please try again.');
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
+      alert('An error occurred during signup. Please try again.');
     }
+  } else {
+    alert('Please fill out all fields');
   }
 };
-
 
 const toggleForm = () => {
   const loginSection = document.querySelector('#login-section');
@@ -40,8 +51,6 @@ const toggleForm = () => {
 document
   .querySelector('.signup-form')
   .addEventListener('submit', signupFormHandler);
-
-
 
 document
   .querySelector('#toggle-form')

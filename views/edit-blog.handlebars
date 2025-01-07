@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>Edit Blog Post</h2>
+
+    <form class="form edit-blog-form" data-id="{{post.id}}">
+      <div class="form-group">
+        <label for="edit-title">Title:</label>
+        <input class="form-input" type="text" id="edit-title" name="edit-title" value="{{post.title}}" />
+      </div>
+      <div class="form-group">
+        <label for="edit-content">Content:</label>
+        <textarea class="form-input" id="edit-content" name="edit-content">{{post.content}}</textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/blog.js"></script> 
